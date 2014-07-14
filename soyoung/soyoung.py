@@ -12,16 +12,9 @@ client = MongoClient()
 db = client.soyoung
 collection = db.item
 
-# items = collection.find_one()
-# print(items)
-
 
 class SoYoung():
     url = 'http://www.soyoung.com/item'
-
-    def __init__(self):
-        pass
-
     @staticmethod
     def convert2num(s):
         return int(s.lstrip('width: ').rstrip('%;')) // 20
