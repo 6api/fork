@@ -49,12 +49,12 @@ class SoYoung():
         merit_box = soup.find('div', class_='merit_box')
         lis1 = merit_box.find_all('li')
 
-        data['advantage'] = html.escape(str(lis1[0].find('p', class_='c')))               #优点
-        data['disadvantage'] = html.escape(str(lis1[1].find('p', class_='c')))            #缺点
-        data['side_effect'] = html.escape(str(lis1[2].find('p', class_='c')))             #副作用及风险
+        data['advantage'] = str(lis1[0].find('p', class_='c').get_text())             #优点
+        data['disadvantage'] = str(lis1[1].find('p', class_='c').get_text())          #缺点
+        data['side_effect'] = str(lis1[2].find('p', class_='c').get_text())          #副作用及风险
 
 
-        data['item_sub_item'] = str(soup.find('h3').get_text()).lstrip('j')         #需要调整
+        data['item_sub_item'] = str(soup.find('h3').get_text()).lstrip('j')         #
 
         # first = data['treat_method'] = soup.find('li', class_='first')
         # data['treat_method'] = soup.find('li', class_='first').div
@@ -62,10 +62,12 @@ class SoYoung():
         showitme_box = soup.find('div', class_='showitme_box showitme_box_new')
         lis2 = showitme_box.find_all('li')
 
+        # data['treatment_method'] = str(lis2[0].div.p.get_text()) + lis2[0].div.img['src']                #治疗方法
+        # data['treatment_effect'] = str(lis2[1].div.p.get_text() + lis2[1].div.img['src'])                #治疗效果
         data['treatment_method'] = html.escape(str(lis2[0].div))                  #治疗方法
         data['treatment_effect'] = html.escape(str(lis2[1].div))                  #治疗效果
-        data['notes'] = html.escape(str(lis2[2].div.p))                           #注意事项
-        data['fit_people'] = html.escape(str(lis2[3].div.p))                      #适合人群
+        data['notes'] = str(lis2[2].div.p.get_text())                             #注意事项
+        data['fit_people'] = str(lis2[3].div.p.get_text())                        #适合人群
         data['treatment_length'] = lis2[4].div.p.string                           #治疗时长
         data['anesthesia_method'] = lis2[5].div.p.string                          #麻醉方法
         data['hospital_treatment'] = lis2[6].div.p.string                         #住院治疗
@@ -79,8 +81,6 @@ class SoYoung():
 
 if __name__ == '__main__':
     so_young = SoYoung()
-    # so_young.get_all_item_id()
+    so_young.get_all_item_id()
     # page_info = so_young.get_page_info('http://www.soyoung.com/post/item/item_id/1')
     # print(page_info)
-    # collection.insert(page_info)
-    so_young.get_all_item_id()
